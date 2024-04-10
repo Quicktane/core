@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('discount_id')->constrained($this->prefix.'discounts');
             $table->foreignId('customer_group_id')->constrained($this->prefix.'customer_groups');
-            $table->scheduling();
+            $this->scheduling($table);
             $table->boolean('visible')->default(true)->index();
             $table->timestamps();
         });
