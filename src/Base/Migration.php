@@ -1,6 +1,6 @@
 <?php
 
-namespace Quicktane\Base;
+namespace Quicktane\Core\Base;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migration as BaseMigration;

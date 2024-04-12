@@ -1,6 +1,6 @@
 <?php
 
-namespace Quicktane;
+namespace Quicktane\Core;
 
 use Illuminate\Support\ServiceProvider;
 

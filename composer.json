@@ -9,10 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Quicktane\\": "src",
-            "Quicktane\\Database\\Factories\\": "database/factories",
-            "Quicktane\\Database\\Seeders\\": "database/seeders",
-            "Quicktane\\Database\\State\\": "database/state"
+            "Quicktane\\Core\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -26,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Quicktane\\QuicktaneServiceProvider"
+                "Quicktane\\Core\\QuicktaneServiceProvider"
             ]
         }
     },

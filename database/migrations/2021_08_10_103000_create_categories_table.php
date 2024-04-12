@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Quicktane\Base\Migration;
+use Quicktane\Core\Base\Migration;
 
 return new class extends Migration
 {
@@ -10,7 +10,9 @@ return new class extends Migration
     {
         Schema::create($this->prefix.'categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_group_id')->constrained($this->prefix.'category_groups');
+            $table->string('name');
+            $table->string('slug')->index();
+//            $table->foreignId('category_group_id')->constrained($this->prefix.'category_groups');
             $table->nestedSet();
 //            $table->string('type')->default('static')->index();
             $table->integer('position')->default(1)->index();
