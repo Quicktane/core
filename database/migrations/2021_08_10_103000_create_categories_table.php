@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->index();
 //            $table->foreignId('category_group_id')->constrained($this->prefix.'category_groups');
-            $table->nestedSet();
+//            $table->nestedSet();
 //            $table->string('type')->default('static')->index();
             $table->integer('position')->default(1)->index();
             $table->timestamps();
