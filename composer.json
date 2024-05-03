@@ -9,7 +9,9 @@
     ],
     "autoload": {
         "psr-4": {
-            "Quicktane\\Core\\": "src"
+            "Quicktane\\Core\\": "src",
+            "Quicktane\\Core\\Database\\Factories\\": "database/factories",
+            "Quicktane\\Core\\Database\\Seeders\\": "database/seeders"
         },
         "files": [
             "src/helpers.php"

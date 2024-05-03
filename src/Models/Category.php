@@ -8,29 +8,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\NodeTrait;
-use Quicktane\Core\Base\Model;
+use Quicktane\Core\Base\BaseModel;
 
 /**
- * @property int       $id
- * @property int       $category_group_id
+ * @property int $id
+ * @property int $category_group_id
  * @property-read  int $_lft
  * @property-read  int $_rgt
- * @property ?int      $parent_id
- * @property string    $type
- * @property string    $sort
- * @property ?Carbon   $created_at
- * @property ?Carbon   $updated_at
- * @property ?Carbon   $deleted_at
+ * @property ?int $parent_id
+ * @property string $type
+ * @property string $sort
+ * @property ?Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  */
-class Category extends Model
+class Category extends BaseModel
 {
-    use HasFactory, NodeTrait;
+//    use HasFactory, NodeTrait;
 
-    protected $fillable = [
-        'name',
-        'slug',
-        'position'
-    ];
+    protected $guarded = [];
 
     /**
      * Return the group relationship.

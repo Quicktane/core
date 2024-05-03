@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->foreignId('customer_group_id')->nullable()->constrained($this->prefix.'customer_groups');
             $table->foreignId('currency_id')->nullable()->constrained($this->prefix.'currencies');
             $table->foreignId('product_id')->constrained($this->prefix.'products');
-            $table->unsignedBigInteger('price')->change();
-            $table->unsignedBigInteger('compare_price')->change();
+            $table->unsignedBigInteger('price');
+            $table->unsignedBigInteger('compare_price');
             $table->integer('tier')->default(1)->index();
             $table->timestamps();
         });
