@@ -12,12 +12,12 @@ return new class extends Migration {
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('type')->index();
-            $table->boolean('required');
+            $table->boolean('required')->default(false);
             $table->string('default_value')->nullable();
-            $table->boolean('system');
+            $table->boolean('system')->default(false);
             $table->boolean('searchable')->default(true)->index();
             $table->boolean('filterable')->default(false)->index();
-            $table->integer('position')->index();
+            $table->integer('position')->index()->nullable();
             $table->timestamps();
         });
     }

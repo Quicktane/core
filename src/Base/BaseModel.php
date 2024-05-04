@@ -16,7 +16,7 @@ abstract class BaseModel extends Model
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('database.table_prefix') . $this->getTable());
+        $this->setTable(config('quicktane.database.table_prefix') . $this->getTable());
 
 //        if ($connection = config('database.connection', false)) {
 //            $this->setConnection('mysql1');

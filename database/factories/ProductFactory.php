@@ -13,7 +13,7 @@ class ProductFactory extends Factory
     {
         return [
             'type' => 'dummy',
-            'sku' => 'uk3333',
+            'sku' => $this->faker->ean8(),
             'status' => 'active',
             'quantity' => 10,
         ];
