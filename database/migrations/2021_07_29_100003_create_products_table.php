@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('ean')->nullable()->index();
             $table->string('status')->index();
             $table->integer('quantity')->default(0)->index();
+            $table->foreignId('attribute_group_id')->references('id')->on($this->prefix.'attribute_groups');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,34 +2,46 @@
 
 namespace Quicktane\Core\Services;
 
-use Illuminate\Support\Collection;
-use Quicktane\Core\Models\Attribute;
+use Quicktane\Core\Dto\AttributeGroupDto;
 use Quicktane\Core\Models\AttributeGroup;
 
 class AttributeGroupService
 {
-    public function attributesByGroup(array $groupIds): Collection
+    public function create(AttributeGroupDto $dto): AttributeGroup
     {
-        return $this->getAttributeGroups($groupIds)->mapWithKeys(
-            fn(AttributeGroup $attributeGroup) => [$attributeGroup->slug => $attributeGroup->customAttributes]
-        );
+        $attributeGroup = AttributeGroup::query()->newModelInstance($dto->toArray());
+        $attributeGroup->save();
+
+        $attributeGroup->customAttributes()->attach($dto->getAttributes());
+
+        return $attributeGroup;
     }
 
-    public function attributes(array $groupIds): AttributesCollection
+    public function update(AttributeGroup $attributeGroup, AttributeGroupDto $dto): AttributeGroup
     {
-        return new AttributesCollection($this->attributesByGroup($groupIds)->collapse());
+        $attributeGroup = $attributeGroup->fill($dto->toArray());
+        $attributeGroup->save();
+
+        $attributeGroup->customAttributes()->sync($dto->getAttributes());
+
+        return $attributeGroup;
     }
 
-    public function uniqueAttributes(array $groupIds): AttributesCollection
+    public function delete(AttributeGroup $attributeGroup): bool
     {
-        return $this->attributes($groupIds)->unique(fn(Attribute $attribute) => $attribute->slug);
+        return $attributeGroup->delete();
     }
 
-    public function getAttributeGroups(array $groupIds): Collection
+    public function assertExists(int $attributeGroupId): void
     {
-        return AttributeGroup::query()
-            ->whereIn('id', $groupIds)
-            ->with('customAttributes')
-            ->get();
+        if (!$this->exists($attributeGroupId)) {
+            //todo create custom exception
+            throw new \Exception('Selected attribute group does not exist');
+        }
+    }
+
+    public function exists(int $attributeGroupId): bool
+    {
+        return AttributeGroup::query()->where('id', $attributeGroupId)->exists();
     }
 }
