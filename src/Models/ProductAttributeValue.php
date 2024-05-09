@@ -2,8 +2,10 @@
 
 namespace Quicktane\Core\Models;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\Model;
 
@@ -25,6 +27,7 @@ use Quicktane\Core\Base\Model;
  * @property bool    $searchable
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
+ * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class ProductAttributeValue extends Model
 {
@@ -32,6 +35,7 @@ class ProductAttributeValue extends Model
 
     protected $guarded = [];
     public $timestamps = false;
+
 
     public function attribute(): BelongsTo
     {

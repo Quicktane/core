@@ -10,6 +10,11 @@ use Quicktane\Core\Models\ProductAttributeValue;
 
 class ProductAttributesService
 {
+    public function __construct(
+        protected ProductAttributeValueService $productAttributeValueService
+    ) {
+    }
+
     public function saveValues(Product $product, AttributesCollection $attributes, array $attributesMap): Collection
     {
         $attributeValues = Arr::only($attributesMap, $attributes->attributeKeys()->toArray());
@@ -22,14 +27,17 @@ class ProductAttributesService
 
     public function saveValue(Product $product, Attribute $attribute, $value): ProductAttributeValue
     {
-        /** @var ProductAttributeValue $attributeValue */
-        $attributeValue = ProductAttributeValue::query()->newModelInstance([
-            'value' => $value,
-        ]);
-        $attributeValue->attribute()->associate($attribute);
-        $attributeValue->product()->associate($product);
+        $attributeValue = $this->productAttributeValueService->find($product, $attribute);
 
-        $attributeValue->save();
+        if (!$attributeValue) {
+            /** @var ProductAttributeValue $attributeValue */
+            $attributeValue = ProductAttributeValue::query()->newModelInstance();
+
+            $attributeValue->attribute()->associate($attribute);
+            $attributeValue->product()->associate($product);
+        }
+
+        $attributeValue->fill(['value' => $value])->save();
 
         return $attributeValue;
     }
