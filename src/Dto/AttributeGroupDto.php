@@ -12,7 +12,7 @@ class AttributeGroupDto
      */
     protected array $attributes = [];
 
-    public function __construct(string $name, string $slug, int $position, array $attributes)
+    public function __construct(string $name, string $slug, int $position = 0, array $attributes = [])
     {
         $this->name = $name;
         $this->slug = $slug;

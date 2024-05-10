@@ -38,7 +38,7 @@ abstract class Migration extends BaseMigration
         }
     }
 
-    protected function userForeignKey(Blueprint $table, string $fieldName = 'user_id')
+    protected function userForeignKey(Blueprint $table, string $fieldName = 'user_id', bool $nullable = false)
     {
         $userModelClass = config('auth.providers.users.model');
         /** @var Model $userModel */
@@ -49,17 +49,17 @@ abstract class Migration extends BaseMigration
         $type = config('quicktane.database.users_id_type', 'bigint');
 
         if ($type == 'uuid') {
-            return $table->foreignUuId($fieldName)->constrained($usersTable);
+            return $table->foreignUuId($fieldName)->nullable($nullable)->constrained($usersTable);
         }
 
         if ($type == 'int') {
-            $table->unsignedInteger($fieldName);
+            $table->unsignedInteger($fieldName)->nullable($nullable);
 
             return $table->foreign($fieldName)->references($userModel->getKeyName())->on($usersTable);
         }
 
         if ($type === 'bigint') {
-            return $table->foreignId($fieldName)->constrained($usersTable);
+            return $table->foreignId($fieldName)->nullable($nullable)->constrained($usersTable);
         }
     }
 }

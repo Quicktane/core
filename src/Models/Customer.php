@@ -2,26 +2,29 @@
 
 namespace Quicktane\Core\Models;
 
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Database\Factories\CustomerFactory;
 
 /**
- * @property int $id
+ * @property int     $id
  * @property ?string $title
- * @property string $first_name
- * @property string $last_name
+ * @property string  $first_name
+ * @property string  $last_name
  * @property ?string $company_name
  * @property ?string $vat_no
  * @property ?string $account_ref
- * @property ?array $meta
+ * @property ?array  $meta
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
+ * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Customer extends BaseModel
 {
@@ -33,7 +36,7 @@ class Customer extends BaseModel
      * {@inheritDoc}
      */
     protected $casts = [
-        'meta' => AsArrayObject::class,
+        'meta' => AsCollection::class,
     ];
 
     protected static function newFactory(): CustomerFactory
@@ -46,26 +49,7 @@ class Customer extends BaseModel
      */
     public function customerGroups(): BelongsToMany
     {
-        $prefix = config('lunar.database.table_prefix');
-
-        return $this->belongsToMany(
-            CustomerGroup::class,
-            "{$prefix}customer_customer_group"
-        )->withTimestamps();
-    }
-
-    /**
-     * Return the customer group relationship.
-     */
-    public function users(): BelongsToMany
-    {
-        $prefix = config('lunar.database.table_prefix');
-
-        return $this->belongsToMany(
-            config('auth.providers.users.model'),
-            "{$prefix}customer_user",
-            "customer_user"
-        )->withTimestamps();
+        return $this->belongsToMany(CustomerGroup::class, "qt_customer_customer_group")->withTimestamps();
     }
 
     /**
@@ -79,10 +63,10 @@ class Customer extends BaseModel
     /**
      * Return the orders relationship.
      */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
+//    public function orders(): HasMany
+//    {
+//        return $this->hasMany(Order::class);
+//    }
 
     /**
      * Get the mapped attributes relation.

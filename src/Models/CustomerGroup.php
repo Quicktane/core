@@ -2,8 +2,10 @@
 
 namespace Quicktane\Core\Models;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Database\Factories\CustomerGroupFactory;
@@ -15,6 +17,7 @@ use Quicktane\Core\Database\Factories\CustomerGroupFactory;
  * @property bool $default
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
+ * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class CustomerGroup extends BaseModel
 {
