@@ -5,6 +5,7 @@ namespace Quicktane\Core\Services;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Quicktane\Core\Dto\CustomerGroupDto;
+use Quicktane\Core\Models\Customer;
 use Quicktane\Core\Models\CustomerGroup;
 
 class CustomerGroupService
@@ -38,6 +39,20 @@ class CustomerGroupService
     public function delete(CustomerGroup $customerGroup): bool
     {
         return $customerGroup->delete();
+    }
+
+    public function attachCustomerToGroup(CustomerGroup $customerGroup, Customer $customer): CustomerGroup
+    {
+        $customerGroup->customers()->attach($customer);
+
+        return $customerGroup;
+    }
+
+    public function detachCustomerToGroup(CustomerGroup $customerGroup, Customer $customer): CustomerGroup
+    {
+        $customerGroup->customers()->detach($customer);
+
+        return $customerGroup;
     }
 
     public function assertSlugUnique(string $slug, string $except = null): void

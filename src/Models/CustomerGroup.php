@@ -32,11 +32,11 @@ class CustomerGroup extends BaseModel
 
     public function customers(): BelongsToMany
     {
-        $prefix = config('lunar.database.table_prefix');
+        $prefix = config('quicktane.database.table_prefix');
 
         return $this->belongsToMany(
             Customer::class,
-            "{$prefix}customer_customer_group"
+            "{$prefix}customer_group_customers"
         )->withTimestamps();
     }
 }
