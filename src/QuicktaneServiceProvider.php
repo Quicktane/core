@@ -3,6 +3,7 @@
 namespace Quicktane\Core;
 
 use Illuminate\Support\ServiceProvider;
+use Quicktane\Core\Console\Commands\Import\ImportCountries;
 
 class QuicktaneServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,11 @@ class QuicktaneServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        if (! config('quicktane.database.disable_migrations', false)) {
+        $this->commands([
+            ImportCountries::class,
+        ]);
+
+        if (!config('quicktane.database.disable_migrations', false)) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
 

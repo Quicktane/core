@@ -4,14 +4,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Quicktane\Core\Base\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create($this->prefix.'addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained($this->prefix.'customers');
             $table->foreignId('country_id')->nullable()->constrained($this->prefix.'countries');
+            $table->string('type');
             $table->string('title')->nullable();
             $table->string('first_name');
             $table->string('last_name');
@@ -22,12 +22,11 @@ return new class extends Migration
             $table->string('city');
             $table->string('state')->nullable();
             $table->string('postcode')->nullable();
-            $table->string('delivery_instructions')->nullable();
+            $table->text('delivery_instructions')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->json('meta')->nullable();
-            $table->boolean('shipping_default')->default(false);
-            $table->boolean('billing_default')->default(false);
+            $table->boolean('default')->default(false);
             $table->timestamps();
         });
     }
