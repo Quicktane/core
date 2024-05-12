@@ -4,28 +4,32 @@ namespace Quicktane\Core\Models;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Quicktane\Core\Base\BaseModel;
 
 /**
- * @property int $id
- * @property ?int $user_id
- * @property ?int $customer_id
- * @property ?int $merged_id
- * @property int $currency_id
- * @property int $channel_id
- * @property ?int $order_id
+ * @property int     $id
+ * @property ?int    $user_id
+ * @property ?int    $customer_id
+ * @property ?int    $merged_id
+ * @property int     $currency_id
+ * @property int     $channel_id
+ * @property ?int    $order_id
  * @property ?string $coupon_code
- * @property ?\Illuminate\Support\Carbon $completed_at
- * @property ?\Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?Carbon $completed_at
+ * @property ?Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Cart extends BaseModel
 {
@@ -46,7 +50,7 @@ class Cart extends BaseModel
      */
     protected $casts = [
         'completed_at' => 'datetime',
-        'meta' => AsArrayObject::class,
+        'meta'         => AsArrayObject::class,
     ];
 
     /**
@@ -58,20 +62,18 @@ class Cart extends BaseModel
     }
 
     /**
-     * Return the user relationship.
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(config('auth.providers.users.model'));
-    }
-
-    /**
      * Return the customer relationship.
      */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
 
     /**
      * Return the addresses relationship.
@@ -111,9 +113,9 @@ class Cart extends BaseModel
     public function draftOrder(int $draftOrderId = null): HasOne
     {
         return $this->hasOne(Order::class)
-                    ->when($draftOrderId, function (Builder $query, int $draftOrderId) {
-                        $query->where('id', $draftOrderId);
-                    })->whereNull('placed_at');
+            ->when($draftOrderId, function (Builder $query, int $draftOrderId) {
+                $query->where('id', $draftOrderId);
+            })->whereNull('placed_at');
     }
 
     /**
@@ -122,9 +124,9 @@ class Cart extends BaseModel
     public function completedOrder(int $completedOrderId = null): HasOne
     {
         return $this->hasOne(Order::class)
-                    ->when($completedOrderId, function (Builder $query, int $completedOrderId) {
-                        $query->where('id', $completedOrderId);
-                    })->whereNotNull('placed_at');
+            ->when($completedOrderId, function (Builder $query, int $completedOrderId) {
+                $query->where('id', $completedOrderId);
+            })->whereNotNull('placed_at');
     }
 
     /**
@@ -133,7 +135,7 @@ class Cart extends BaseModel
     public function completedOrders(): HasMany
     {
         return $this->hasMany(Order::class)
-                    ->whereNotNull('placed_at');
+            ->whereNotNull('placed_at');
     }
 
     /**
@@ -141,7 +143,7 @@ class Cart extends BaseModel
      */
     public function hasCompletedOrders(): bool
     {
-        return (bool)$this->completedOrders()->count();
+        return (bool) $this->completedOrders()->count();
     }
 
     /**
@@ -162,7 +164,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.add_to_cart', AddOrUpdatePurchasable::class)
         )->execute($this, $purchasable, $quantity, $meta)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -175,7 +177,7 @@ class Cart extends BaseModel
                 $this->add(
                     purchasable: $line['purchasable'],
                     quantity: $line['quantity'],
-                    meta: (array)($line['meta'] ?? null),
+                    meta: (array) ($line['meta'] ?? null),
                     refresh: false
                 );
             });
@@ -199,7 +201,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.remove_from_cart', RemovePurchasable::class)
         )->execute($this, $cartLineId)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -219,7 +221,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.update_cart_line', UpdateCartLine::class)
         )->execute($cartLineId, $quantity, $meta)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -258,8 +260,8 @@ class Cart extends BaseModel
     {
         if ($this->customer()->exists()) {
             if (!$user->query()
-                      ->whereHas('customers', fn($query) => $query->where('customer_id', $this->customer->id))
-                      ->exists()) {
+                ->whereHas('customers', fn($query) => $query->where('customer_id', $this->customer->id))
+                ->exists()) {
                 throw new Exception('Invalid user');
             }
         }
@@ -267,7 +269,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.associate_user', AssociateUser::class)
         )->execute($this, $user, $policy)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -277,8 +279,8 @@ class Cart extends BaseModel
     {
         if ($this->user()->exists()) {
             if (!$customer->query()
-                          ->whereHas('users', fn($query) => $query->where('user_id', $this->user->id))
-                          ->exists()) {
+                ->whereHas('users', fn($query) => $query->where('user_id', $this->user->id))
+                ->exists()) {
                 throw new Exception('Invalid customer');
             }
         }
@@ -304,7 +306,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.add_address', AddAddress::class)
         )->execute($this, $address, $type)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -338,7 +340,7 @@ class Cart extends BaseModel
         return app(
             config('lunar.cart.actions.set_shipping_option', SetShippingOption::class)
         )->execute($this, $option)
-         ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
+            ->then(fn() => $refresh ? $this->refresh()->calculate() : $this);
     }
 
     /**
@@ -354,7 +356,7 @@ class Cart extends BaseModel
      */
     public function isShippable(): bool
     {
-        return (bool)$this->lines->filter(function ($line) {
+        return (bool) $this->lines->filter(function ($line) {
             return $line->purchasable->isShippable();
         })->count();
     }
@@ -441,9 +443,9 @@ class Cart extends BaseModel
     {
         $this->shippingEstimateMeta = $params;
         $option = ShippingManifest::getOptions($this)
-                                  ->filter(
-                                      fn($option) => !$option->collect
-                                  )->sortBy('price.value')->first();
+            ->filter(
+                fn($option) => !$option->collect
+            )->sortBy('price.value')->first();
 
         if ($setOverride && $option) {
             $this->shippingOptionOverride = $option;
