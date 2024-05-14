@@ -5,7 +5,7 @@ namespace Quicktane\Core\Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Quicktane\Core\Models\Customer;
+use Quicktane\Core\Customer\Models\Customer;
 
 class CustomerFactory extends Factory
 {

@@ -3,7 +3,7 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\Product;
+use Quicktane\Core\Product\Models\Product;
 
 class ProductFactory extends Factory
 {

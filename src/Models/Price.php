@@ -4,11 +4,12 @@ namespace Quicktane\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Base\Casts\Price as PriceCast;
+use Quicktane\Core\Customer\Models\CustomerGroup;
 use Quicktane\Core\Database\Factories\PriceFactory;
+use Quicktane\Core\Product\Models\Product;
 
 /**
  * @property int $id

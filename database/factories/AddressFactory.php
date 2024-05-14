@@ -3,9 +3,9 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\Address;
+use Quicktane\Core\Customer\Models\Address;
+use Quicktane\Core\Customer\Models\Customer;
 use Quicktane\Core\Models\Country;
-use Quicktane\Core\Models\Customer;
 
 class AddressFactory extends Factory
 {

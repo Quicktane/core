@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Customer\Models\CustomerGroup;
 use Quicktane\Core\Database\Factories\DiscountFactory;
+use Quicktane\Core\Product\Models\Product;
 
 /**
  * @property int $id

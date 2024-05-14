@@ -3,9 +3,9 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\CustomerGroup;
-use Quicktane\Core\Models\CustomerGroupProduct;
-use Quicktane\Core\Models\Product;
+use Quicktane\Core\Customer\Models\CustomerGroup;
+use Quicktane\Core\Customer\Models\CustomerGroupProduct;
+use Quicktane\Core\Product\Models\Product;
 
 class CustomerGroupProductFactory extends Factory
 {

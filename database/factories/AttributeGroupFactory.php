@@ -3,7 +3,7 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\AttributeGroup;
+use Quicktane\Core\Product\Models\AttributeGroup;
 
 class AttributeGroupFactory extends Factory
 {

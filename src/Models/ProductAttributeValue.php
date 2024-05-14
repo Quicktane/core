@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\Model;
+use Quicktane\Core\Product\Models\Attribute;
+use Quicktane\Core\Product\Models\Product;
 
 /**
  * @property int     $id

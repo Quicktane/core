@@ -3,7 +3,7 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\Attribute;
+use Quicktane\Core\Product\Models\Attribute;
 
 class AttributeFactory extends Factory
 {

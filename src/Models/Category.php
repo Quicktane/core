@@ -3,12 +3,12 @@
 namespace Quicktane\Core\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
-use Kalnoy\Nestedset\NodeTrait;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Customer\Models\CustomerGroup;
+use Quicktane\Core\Product\Models\Product;
 
 /**
  * @property int $id

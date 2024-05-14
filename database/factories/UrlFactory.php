@@ -4,8 +4,8 @@ namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Quicktane\Core\Models\Language;
-use Quicktane\Core\Models\Product;
 use Quicktane\Core\Models\Url;
+use Quicktane\Core\Product\Models\Product;
 
 class UrlFactory extends Factory
 {

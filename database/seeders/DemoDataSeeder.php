@@ -4,8 +4,8 @@ namespace Quicktane\Core\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Quicktane\Core\Models\Attribute;
-use Quicktane\Core\Models\AttributeGroup;
+use Quicktane\Core\Product\Models\Attribute;
+use Quicktane\Core\Product\Models\AttributeGroup;
 
 class DemoDataSeeder extends Seeder
 {

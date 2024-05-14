@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Lunar\Database\Factories\TaxZoneCustomerGroupFactory;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Customer\Models\CustomerGroup;
 
 /**
  * @property int $id
