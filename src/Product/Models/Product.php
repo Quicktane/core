@@ -11,6 +11,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Category\Models\Category;
 use Quicktane\Core\Database\Factories\ProductFactory;
 use Quicktane\Core\Product\Enums\ProductType;
 use Quicktane\Core\Product\Services\ProductAttributesCollection;
@@ -26,6 +27,7 @@ use Quicktane\Core\Product\Services\ProductAttributesCollection;
  * @property ?Carbon        $deleted_at
  * @property Collection     $customAttributes
  * @property AttributeGroup $attributeGroup
+ * @property Collection     $categories
  * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Product extends BaseModel
@@ -64,5 +66,10 @@ class Product extends BaseModel
     {
         //todo make more flexible
         return $this->customAttributes ??= new ProductAttributesCollection($this);
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'qt_category_products');
     }
 }

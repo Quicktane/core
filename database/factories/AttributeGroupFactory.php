@@ -12,9 +12,9 @@ class AttributeGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'     => 'Default',
-            'slug'     => 'default',
-            'position' => 0,
+            'name' => $this->faker->name,
+            'slug' => $this->faker->slug,
+            'position' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

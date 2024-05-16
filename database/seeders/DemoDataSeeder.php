@@ -4,8 +4,10 @@ namespace Quicktane\Core\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Quicktane\Core\Category\Models\Category;
 use Quicktane\Core\Product\Models\Attribute;
 use Quicktane\Core\Product\Models\AttributeGroup;
+use Quicktane\Core\Product\Models\Product;
 
 class DemoDataSeeder extends Seeder
 {
@@ -26,23 +28,28 @@ class DemoDataSeeder extends Seeder
 //        Customer::factory()->create();
 //        Country::factory()->create();
 
+        Product::factory()->create();
+        Category::factory()->create();
+
         $attributes = Attribute::factory()
-            ->string()
-            ->sequence(
-                ['name' => 'Name', 'slug' => 'name'],
-                ['name' => 'Description', 'slug' => 'description'],
-                ['name' => 'color', 'slug' => 'color'],
-            )->count(3)
-            ->create();
+                               ->string()
+                               ->sequence(
+                                   ['name' => 'Name', 'slug' => 'name'],
+                                   ['name' => 'Description', 'slug' => 'description'],
+                                   ['name' => 'color', 'slug' => 'color'],
+                               )
+                               ->count(3)
+                               ->create();
 
         $attributesForGroup2 = Attribute::factory()
-            ->string()
-            ->sequence(
-                ['name' => 'Length', 'slug' => 'length'],
-                ['name' => 'Width', 'slug' => 'width'],
-                ['name' => 'Height', 'slug' => 'height'],
-            )->count(3)
-            ->create();
+                                        ->string()
+                                        ->sequence(
+                                            ['name' => 'Length', 'slug' => 'length'],
+                                            ['name' => 'Width', 'slug' => 'width'],
+                                            ['name' => 'Height', 'slug' => 'height'],
+                                        )
+                                        ->count(3)
+                                        ->create();
 
         $attributesForGroup2->push($attributes->first());
 
