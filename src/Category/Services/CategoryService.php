@@ -9,7 +9,7 @@ use Quicktane\Core\Category\Models\Category;
 
 class CategoryService
 {
-    public function listTree()
+    public function tree()
     {
         return Category::query()->get()->toTree()->toArray();
     }

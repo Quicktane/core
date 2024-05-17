@@ -3,29 +3,26 @@
 namespace Quicktane\Core\Category\Services;
 
 use Illuminate\Support\Collection;
-use Quicktane\Core\Category\DTO\CategoriesIdsDto;
-use Quicktane\Core\Category\DTO\ProductsIdsDto;
 use Quicktane\Core\Product\Models\Product;
 
 class CategorySyncService
 {
-    //TODO isn't that overhead validation? ProductsIdsDto | CategoriesIdsDto
-    public function attach(ProductsIdsDto $products, CategoriesIdsDto $categories): void
+    public function attach(array $productsIds, array $categoriesIds): void
     {
-        $this->products($products)->map(function (Product $product) use ($categories) {
-            $product->categories()->withTimestamps()->attach($categories->categories);
+        $this->products($productsIds)->map(function (Product $product) use ($categoriesIds) {
+            $product->categories()->withTimestamps()->attach($categoriesIds);
         });
     }
 
-    public function detach(ProductsIdsDto $products, CategoriesIdsDto $categories): void
+    public function detach(array $productsIds, array $categoriesIds): void
     {
-        $this->products($products)->map(function (Product $product) use ($categories) {
-            $product->categories()->withTimestamps()->detach($categories->categories);
+        $this->products($productsIds)->map(function (Product $product) use ($categoriesIds) {
+            $product->categories()->withTimestamps()->detach($categoriesIds);
         });
     }
 
-    protected function products(ProductsIdsDto $products): Collection
+    protected function products(array $productsIds): Collection
     {
-        return Product::query()->whereIn('id', $products->products)->get();
+        return Product::query()->whereIn('id', $productsIds)->get();
     }
 }

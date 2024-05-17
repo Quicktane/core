@@ -15,22 +15,22 @@ class CategoryTree
     ) {
     }
 
-    public static function fromArray(array $rawCategories): self
+    public static function fromArray(array $rawCategories): static
     {
         $categoryTree = new self($rawCategories);
 
-        $categoryTree->build();
-
-        return $categoryTree;
+        return $categoryTree->build();
     }
 
-    public function build(): void
+    public function build(): static
     {
         try {
             $this->categoriesTree = Arr::map(
                 $this->rawCategories,
                 fn(array $rawCategory) => $this->parseCategory($rawCategory)
             );
+
+            return $this;
         } catch (Exception $exception) {
             throw new CategoryTreeStructureException();
         }
