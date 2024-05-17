@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
@@ -16,16 +17,17 @@ use Quicktane\Core\Product\Enums\ProductType;
 use Quicktane\Core\Product\Services\ProductAttributesCollection;
 
 /**
- * @property int            $id
- * @property ?int           $brand_id
- * @property int            $product_type_id
- * @property string         $status
- * @property array          $attribute_data
- * @property ?Carbon        $created_at
- * @property ?Carbon        $updated_at
- * @property ?Carbon        $deleted_at
- * @property Collection     $customAttributes
- * @property AttributeGroup $attributeGroup
+ * @property int               $id
+ * @property ?int              $brand_id
+ * @property int               $product_type_id
+ * @property string            $status
+ * @property array             $attribute_data
+ * @property ?Carbon           $created_at
+ * @property ?Carbon           $updated_at
+ * @property ?Carbon           $deleted_at
+ * @property Collection        $customAttributes
+ * @property AttributeGroup    $attributeGroup
+ * @property Collection<Price> $prices
  * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Product extends BaseModel
@@ -58,6 +60,11 @@ class Product extends BaseModel
     public function attributeGroup(): BelongsTo
     {
         return $this->belongsTo(AttributeGroup::class);
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(Price::class);
     }
 
     public function customAttributeCollection(): ProductAttributesCollection

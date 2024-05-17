@@ -42,7 +42,8 @@
         "spatie/laravel-blink": "^1.6",
         "lukascivil/treewalker": "0.9.1",
         "doctrine/dbal": "^4.0",
-        "wendelladriel/laravel-validated-dto": "^3.5"
+        "wendelladriel/laravel-validated-dto": "^3.5",
+        "cknow/laravel-money": "^8.1"
     },
     "require-dev": {
         "orchestra/testbench": "^9.0"

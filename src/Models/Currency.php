@@ -9,6 +9,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Database\Factories\CurrencyFactory;
+use Quicktane\Core\Product\Models\Price;
 
 /**
  * @property int $id

@@ -34,4 +34,9 @@ class CartService
     {
         return $cart->items()->where('id', $item->id)->delete();
     }
+
+    public function deleteAllItems(Cart $cart): bool
+    {
+        return $cart->items()->delete();
+    }
 }

@@ -9,9 +9,9 @@ use Lunar\Database\Factories\CartAddressFactory;
 use Lunar\Models\Cart;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Models\Country;
-use Quicktane\Core\Models\Price;
 use Quicktane\Core\Models\ShippingOption;
 use Quicktane\Core\Models\TaxBreakdown;
+use Quicktane\Core\Product\Models\Price;
 
 /**
  * @property int $id

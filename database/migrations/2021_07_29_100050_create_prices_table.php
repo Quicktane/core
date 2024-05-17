@@ -10,11 +10,9 @@ return new class extends Migration {
         Schema::create($this->prefix.'prices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_group_id')->nullable()->constrained($this->prefix.'customer_groups');
-            $table->foreignId('currency_id')->nullable()->constrained($this->prefix.'currencies');
             $table->foreignId('product_id')->constrained($this->prefix.'products');
-            $table->unsignedBigInteger('price');
-            $table->unsignedBigInteger('compare_price');
-            $table->integer('tier')->default(1)->index();
+            $table->unsignedBigInteger('amount')->default(0);
+            $table->foreignId('currency_id')->nullable()->constrained($this->prefix.'currencies');
             $table->timestamps();
         });
     }

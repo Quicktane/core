@@ -1,28 +1,29 @@
 <?php
 
-namespace Quicktane\Core\Models;
+namespace Quicktane\Core\Product\Models;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
-use Quicktane\Core\Base\Casts\Price as PriceCast;
+use Quicktane\Core\Base\Casts\MoneyIntegerCast;
 use Quicktane\Core\Customer\Models\CustomerGroup;
 use Quicktane\Core\Database\Factories\PriceFactory;
-use Quicktane\Core\Product\Models\Product;
+use Quicktane\Core\Models\Currency;
 
 /**
- * @property int $id
- * @property ?int $customer_group_id
- * @property ?int $currency_id
- * @property int $product_id
- * @property int $price
- * @property ?int $compare_price
- * @property int $tier
- * @property ?Carbon $created_at
- * @property ?Carbon $updated_at
+ * @property int      $id
+ * @property ?int     $customer_group_id
+ * @property ?int     $currency_id
+ * @property int      $product_id
+ * @property int      $amount
+ * @property ?Carbon  $created_at
+ * @property ?Carbon  $updated_at
  * @property Currency $currency
- * @property Product $product
+ * @property Product  $product
+ * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Price extends BaseModel
 {
@@ -31,8 +32,7 @@ class Price extends BaseModel
     protected $guarded = [];
 
     protected $casts = [
-        'price' => PriceCast::class,
-        'compare_price' => PriceCast::class,
+        'amount' => MoneyIntegerCast::class,
     ];
 
     protected static function newFactory(): PriceFactory
