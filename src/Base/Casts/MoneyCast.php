@@ -7,7 +7,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Quicktane\Core\Base\Helpers\CurrencyHelper;
-use Quicktane\Core\Models\Currency;
+use Quicktane\Core\Product\Models\Currency;
 
 abstract class MoneyCast implements CastsAttributes
 {

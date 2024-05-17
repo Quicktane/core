@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Carbon;
-use Lunar\Base\Casts\Price;
-use Lunar\Database\Factories\TransactionFactory;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Product\Models\Currency;
 
 /**
  * @property int $id
