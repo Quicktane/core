@@ -12,21 +12,23 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Base\BaseModel;
+use Quicktane\Core\Category\Models\Category;
 use Quicktane\Core\Database\Factories\ProductFactory;
 use Quicktane\Core\Product\Enums\ProductType;
 use Quicktane\Core\Product\Services\ProductAttributesCollection;
 
 /**
- * @property int               $id
- * @property ?int              $brand_id
- * @property int               $product_type_id
- * @property string            $status
- * @property array             $attribute_data
- * @property ?Carbon           $created_at
- * @property ?Carbon           $updated_at
- * @property ?Carbon           $deleted_at
- * @property Collection        $customAttributes
- * @property AttributeGroup    $attributeGroup
+ * @property int            $id
+ * @property ?int           $brand_id
+ * @property int            $product_type_id
+ * @property string         $status
+ * @property array          $attribute_data
+ * @property ?Carbon        $created_at
+ * @property ?Carbon        $updated_at
+ * @property ?Carbon        $deleted_at
+ * @property Collection     $customAttributes
+ * @property AttributeGroup $attributeGroup
+ * @property Collection     $categories
  * @property Collection<Price> $prices
  * @method static static|QueryBuilder|EloquentBuilder query()
  */
@@ -71,5 +73,10 @@ class Product extends BaseModel
     {
         //todo make more flexible
         return $this->customAttributes ??= new ProductAttributesCollection($this);
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'qt_category_products');
     }
 }
