@@ -3,10 +3,8 @@
 namespace Quicktane\Core\Config\Services;
 
 use BackedEnum;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Psr\SimpleCache\CacheInterface;
-use Quicktane\Core\Config\Models\Config;
 
 class ConfigCacheService
 {
@@ -30,11 +28,6 @@ class ConfigCacheService
     public function has(BackedEnum $key): bool
     {
         return $this->cacheDriver()->has($this->cachePrefix($key->value));
-    }
-
-    public function saveInCache(Collection $configs): void
-    {
-        $configs->each(fn(Config $config) => $this->put($this->cachePrefix($config->key), $config->value));
     }
 
     protected function cachePrefix(BackedEnum|string $key): string

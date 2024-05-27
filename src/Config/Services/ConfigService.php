@@ -56,6 +56,11 @@ class ConfigService
         });
     }
 
+    public function saveInCache(): void
+    {
+        $this->all()->each(fn(Config $config) => $this->configCacheService->put($config->key, $config->value));
+    }
+
     public function delete(BackedEnum $key): void
     {
         DB::transaction(function () use ($key) {

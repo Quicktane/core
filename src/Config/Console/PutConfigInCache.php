@@ -26,9 +26,9 @@ class PutConfigInCache extends Command
     /**
      * Execute the console command.
      */
-    public function handle(ConfigService $configService, ConfigCacheService $configCacheService)
+    public function handle(ConfigService $configService)
     {
-        $configCacheService->saveInCache($configService->all());
+        $configService->saveInCache();
 
         Log::info('Config put in cache!');
     }
