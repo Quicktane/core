@@ -4,6 +4,7 @@ namespace Quicktane\Core\Config\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Quicktane\Core\Config\Services\ConfigCacheService;
 use Quicktane\Core\Config\Services\ConfigService;
 
 class PutConfigInCache extends Command
@@ -25,9 +26,9 @@ class PutConfigInCache extends Command
     /**
      * Execute the console command.
      */
-    public function handle(ConfigService $configService)
+    public function handle(ConfigService $configService, ConfigCacheService $configCacheService)
     {
-        $configService->saveInCache();
+        $configCacheService->saveInCache($configService->all());
 
         Log::info('Config put in cache!');
     }

@@ -2,6 +2,7 @@
 
 namespace Quicktane\Core\Config\Dto;
 
+use BackedEnum;
 use Quicktane\Core\Base\Dto;
 use Quicktane\Core\Config\Enums\ConfigKey;
 use WendellAdriel\ValidatedDTO\Attributes\Cast;
@@ -12,7 +13,7 @@ class ConfigDto extends Dto
 {
     #[Rules(['required'])]
     #[Cast(EnumCast::class, ConfigKey::class)]
-    public ConfigKey $key;
+    public BackedEnum $key;
 
     #[Rules(['required', 'string'])]
     public string $value;
