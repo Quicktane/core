@@ -2,11 +2,16 @@
 
 namespace Quicktane\Core\Product\Services;
 
-use Quicktane\Core\Product\Dto\AttributeDto;
+use Quicktane\Core\Product\Dto\CreateAttributeDto;
 use Quicktane\Core\Product\Models\Attribute;
 
-class AttributesService
+class AttributeService
 {
+    public function __construct(
+        protected AttributeOptionService $attributeOptionService
+    ) {
+    }
+
     public function find(int $id): ?Attribute
     {
         return Attribute::query()->find($id);
@@ -17,15 +22,16 @@ class AttributesService
         return Attribute::query()->where('slug', $slug)->first();
     }
 
-    public function create(AttributeDto $dto): Attribute
+    public function create(CreateAttributeDto $dto): Attribute
     {
-        $attribute = Attribute::query()->newModelInstance($dto->toArray());
+        /** @var Attribute $attribute */
+        $attribute = $dto->toModel(Attribute::class);
         $attribute->save();
 
         return $attribute;
     }
 
-    public function update(Attribute $attribute, AttributeDto $dto): Attribute
+    public function update(Attribute $attribute, CreateAttributeDto $dto): Attribute
     {
         $attribute->fill($dto->toArray());
         $attribute->save();
