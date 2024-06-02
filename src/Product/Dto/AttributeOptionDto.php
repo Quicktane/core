@@ -2,12 +2,12 @@
 
 namespace Quicktane\Core\Product\Dto;
 
-use Quicktane\Core\Base\Dto;
-use WendellAdriel\ValidatedDTO\Attributes\Cast;
-use WendellAdriel\ValidatedDTO\Attributes\DefaultValue;
-use WendellAdriel\ValidatedDTO\Attributes\Rules;
-use WendellAdriel\ValidatedDTO\Casting\BooleanCast;
-use WendellAdriel\ValidatedDTO\Casting\IntegerCast;
+use Quicktane\Core\Base\Dto\Attributes\Cast;
+use Quicktane\Core\Base\Dto\Attributes\DefaultValue;
+use Quicktane\Core\Base\Dto\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Casting\BooleanCast;
+use Quicktane\Core\Base\Dto\Casting\IntegerCast;
+use Quicktane\Core\Base\Dto\Dto;
 
 class AttributeOptionDto extends Dto
 {

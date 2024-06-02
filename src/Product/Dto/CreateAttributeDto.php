@@ -3,13 +3,13 @@
 namespace Quicktane\Core\Product\Dto;
 
 use Illuminate\Validation\Rules\Enum;
-use Quicktane\Core\Base\Dto;
+use Quicktane\Core\Base\Dto\Attributes\Cast;
+use Quicktane\Core\Base\Dto\Attributes\DefaultValue;
+use Quicktane\Core\Base\Dto\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Casting\EnumCast;
+use Quicktane\Core\Base\Dto\Casting\IntegerCast;
+use Quicktane\Core\Base\Dto\Dto;
 use Quicktane\Core\Product\Enums\AttributeType;
-use WendellAdriel\ValidatedDTO\Attributes\Cast;
-use WendellAdriel\ValidatedDTO\Attributes\DefaultValue;
-use WendellAdriel\ValidatedDTO\Attributes\Rules;
-use WendellAdriel\ValidatedDTO\Casting\EnumCast;
-use WendellAdriel\ValidatedDTO\Casting\IntegerCast;
 
 class CreateAttributeDto extends Dto
 {

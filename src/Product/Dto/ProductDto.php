@@ -2,58 +2,27 @@
 
 namespace Quicktane\Core\Product\Dto;
 
-use Quicktane\Core\Product\Enums\ProductType;
+use Quicktane\Core\Base\Dto\Attributes\Cast;
+use Quicktane\Core\Base\Dto\Attributes\DefaultValue;
+use Quicktane\Core\Base\Dto\Attributes\Exclude;
+use Quicktane\Core\Base\Dto\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Casting\IntegerCast;
+use Quicktane\Core\Base\Dto\Dto;
 
-class ProductDto
+class ProductDto extends Dto
 {
-    protected ProductType $type;
-    protected string $sku;
-    protected int $quantity;
+    #[Rules(['required', 'string'])]
+    public string $sku;
 
-    protected int $attributeGroup;
-    protected array $attributes = [];
+    #[Rules(['sometimes', 'integer'])]
+    #[Cast(IntegerCast::class)]
+    #[DefaultValue(0)]
+    public int $quantity;
 
-    public function __construct(
-        ProductType $type,
-        string $sku,
-        int $quantity,
-        int $attributeGroup,
-        array $attributes
-    ) {
-        $this->type = $type;
-        $this->sku = $sku;
-        $this->quantity = $quantity;
-        $this->attributeGroup = $attributeGroup;
-        $this->attributes = $attributes;
-    }
+    #[Rules(['required', 'integer', 'exists:qt_attribute_groups,id'])]
+    public int $attribute_group_id;
 
-    public static function fromArray(array $data): static
-    {
-        return new static(
-            $data['type'],
-            $data['sku'],
-            $data['quantity'],
-            $data['attribute_group'],
-            $data['attributes']
-        );
-    }
-
-    public function getAttributeGroup(): int
-    {
-        return $this->attributeGroup;
-    }
-
-    public function getAttributes(): array
-    {
-        return $this->attributes;
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'type'     => $this->type,
-            'sku'      => $this->sku,
-            'quantity' => $this->quantity,
-        ];
-    }
+    #[Rules(['required', 'array'])]
+    #[Exclude]
+    public array $attributes = [];
 }
