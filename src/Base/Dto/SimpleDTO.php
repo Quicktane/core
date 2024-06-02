@@ -20,6 +20,7 @@ use Quicktane\Core\Base\Dto\Attributes\Map;
 use Quicktane\Core\Base\Dto\Attributes\Rules;
 use Quicktane\Core\Base\Dto\Casting\ArrayCast;
 use Quicktane\Core\Base\Dto\Casting\Castable;
+use Quicktane\Core\Base\Dto\Casting\DTOCast;
 use Quicktane\Core\Base\Dto\Casting\EnumCast;
 use Quicktane\Core\Base\Dto\Concerns\DataResolver;
 use Quicktane\Core\Base\Dto\Concerns\DataTransformer;
@@ -280,7 +281,7 @@ abstract class SimpleDTO implements BaseDTO, CastsAttributes
                 continue;
             }
 
-            $param = $cast->type === EnumCast::class
+            $param = in_array($cast->type, [EnumCast::class, DTOCast::class])
                 ? $cast->param
                 : new $cast->param();
 

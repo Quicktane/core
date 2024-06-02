@@ -18,18 +18,19 @@ use Quicktane\Core\Product\Enums\ProductType;
 use Quicktane\Core\Product\Services\ProductAttributesCollection;
 
 /**
- * @property int            $id
- * @property ?int           $brand_id
- * @property int            $product_type_id
- * @property string         $status
- * @property array          $attribute_data
- * @property ?Carbon        $created_at
- * @property ?Carbon        $updated_at
- * @property ?Carbon        $deleted_at
- * @property Collection     $customAttributes
- * @property AttributeGroup $attributeGroup
- * @property Collection     $categories
+ * @property int               $id
+ * @property ?int              $brand_id
+ * @property int               $product_type_id
+ * @property string            $status
+ * @property array             $attribute_data
+ * @property ?Carbon           $created_at
+ * @property ?Carbon           $updated_at
+ * @property ?Carbon           $deleted_at
+ * @property Collection        $customAttributes
+ * @property AttributeGroup    $attributeGroup
+ * @property Collection        $categories
  * @property Collection<Price> $prices
+ * @property ProductType       $type
  * @method static static|QueryBuilder|EloquentBuilder query()
  */
 class Product extends BaseModel
@@ -69,14 +70,24 @@ class Product extends BaseModel
         return $this->hasMany(Price::class);
     }
 
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'qt_category_products');
+    }
+
+    public function variants(): BelongsToMany
+    {
+        return $this->belongsToMany(static::class, 'qt_product_variants');
+    }
+
+    public function variantOptions()
+    {
+        return $this->belongsToMany(AttributeOption::class, 'qt_product_variant_options', relatedPivotKey: 'option_id');
+    }
+
     public function customAttributeCollection(): ProductAttributesCollection
     {
         //todo make more flexible
         return $this->customAttributes ??= new ProductAttributesCollection($this);
-    }
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'qt_category_products');
     }
 }

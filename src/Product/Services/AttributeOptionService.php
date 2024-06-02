@@ -14,6 +14,11 @@ class AttributeOptionService
         return AttributeOption::query()->where('slug', $slug)->first();
     }
 
+    public function getForAttribute(Attribute $attribute): Collection
+    {
+        return AttributeOption::query()->where('attribute_id', $attribute->id)->get();
+    }
+
     public function createMany(Attribute $attribute, Collection $attributeOptions): Collection
     {
         return $attributeOptions->map(

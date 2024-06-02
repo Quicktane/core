@@ -7,11 +7,6 @@ use Quicktane\Core\Product\Models\Attribute;
 
 class AttributeService
 {
-    public function __construct(
-        protected AttributeOptionService $attributeOptionService
-    ) {
-    }
-
     public function find(int $id): ?Attribute
     {
         return Attribute::query()->find($id);
