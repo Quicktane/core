@@ -14,6 +14,7 @@ use Quicktane\Core\Product\Enums\AttributeType;
 
 /**
  * @property int           $id
+ * @property string        $name
  * @property string        $slug
  * @property AttributeType $type
  * @method static static|QueryBuilder|EloquentBuilder query()
@@ -21,6 +22,10 @@ use Quicktane\Core\Product\Enums\AttributeType;
 class Attribute extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'type' => AttributeType::class,
+    ];
 
     protected static function newFactory(): AttributeFactory
     {

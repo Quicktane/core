@@ -9,6 +9,11 @@ use Quicktane\Core\Product\Models\AttributeOption;
 
 class AttributeOptionService
 {
+    public function collection(): Collection
+    {
+        return AttributeOption::query()->get();
+    }
+
     public function findBySlug(string $slug): ?AttributeOption
     {
         return AttributeOption::query()->where('slug', $slug)->first();
