@@ -6,14 +6,16 @@ use BackedEnum;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Config\Dto\ConfigDto;
 use Quicktane\Core\Config\Interfaces\ConfigServiceInterface;
+use Quicktane\Core\Config\Managers\ConfigManager;
 use Quicktane\Core\Config\Services\ConfigCacheService;
 use Quicktane\Core\Config\Services\ConfigService;
 
 class ConfigDecorator extends ConfigService implements ConfigServiceInterface
 {
     public function __construct(
-        protected ConfigService $configService,
         protected ConfigCacheService $configCacheService,
+        protected ConfigService $configService,
+        protected ConfigManager $configManager,
     ) {
     }
 
@@ -25,7 +27,7 @@ class ConfigDecorator extends ConfigService implements ConfigServiceInterface
             return $result;
         }
 
-        $this->putInCacheIfExist();
+        $this->configManager->putInCacheIfExist();
 
         return parent::all();
     }
@@ -38,7 +40,7 @@ class ConfigDecorator extends ConfigService implements ConfigServiceInterface
             return $config;
         }
 
-        $this->putInCacheIfExist($key);
+        $this->configManager->putInCacheIfExist($key);
 
         return parent::find($key);
     }
@@ -51,7 +53,7 @@ class ConfigDecorator extends ConfigService implements ConfigServiceInterface
             return $config;
         }
 
-        $this->putInCacheIfExist($key);
+        $this->configManager->putInCacheIfExist($key);
 
         return parent::find($key);
     }
@@ -60,32 +62,13 @@ class ConfigDecorator extends ConfigService implements ConfigServiceInterface
     {
         parent::set($configDto);
 
-        $this->rememberCache();
+        $this->configManager->rememberCache();
     }
 
     public function delete(BackedEnum $key): void
     {
         parent::delete($key);
 
-        $this->rememberCache();
-    }
-
-    public function putInCacheIfExist(?BackedEnum $key = null): void
-    {
-        if ($key == null || $this->configService->find($key)) {
-            $this->rememberCache();
-        }
-    }
-
-    public function rememberCache(): void
-    {
-        $this->configCacheService->forgetCache();
-
-        $this->configCacheService->rememberStructure($this->getSerializedConfigsForCache());
-    }
-
-    protected function getSerializedConfigsForCache(): array
-    {
-        return $this->configService->all()->toArray();
+        $this->configManager->rememberCache();
     }
 }

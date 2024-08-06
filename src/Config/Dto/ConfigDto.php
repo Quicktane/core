@@ -3,7 +3,7 @@
 namespace Quicktane\Core\Config\Dto;
 
 use BackedEnum;
-use Quicktane\Core\Base\Dto;
+use Quicktane\Core\Base\Dto\Dto;
 use Quicktane\Core\Config\Enums\ConfigKey;
 use WendellAdriel\ValidatedDTO\Attributes\Cast;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
