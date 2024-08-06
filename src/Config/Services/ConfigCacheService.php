@@ -2,50 +2,41 @@
 
 namespace Quicktane\Core\Config\Services;
 
-use BackedEnum;
-use Illuminate\Support\Facades\Cache;
-use Psr\SimpleCache\CacheInterface;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Quicktane\Core\Base\Factories\CacheFactory;
 
 class ConfigCacheService
 {
     const PREFIX = 'global_configs';
 
-    public function get(BackedEnum $key, $default = null)
-    {
-        return $this->cacheDriver()->get($this->cachePrefix($key), $default);
+    public function __construct(
+        protected CacheFactory $cacheFactory
+    ) {
     }
 
-    public function put(BackedEnum|string $key, $value)
+    public function all(): Collection
     {
-        return $this->cacheDriver()->put($this->cachePrefix($this->resolveKey($key)), $value);
+        return collect($this->cacheFactory->driver()->get($this->cachePrefix()));
     }
 
-    public function delete(BackedEnum $key)
+    public function get($key, $default = null): ?string
     {
-        return $this->cacheDriver()->delete($this->cachePrefix($key));
+        return Arr::get($this->cacheFactory->driver()->get($this->cachePrefix()), $key->value, $default);
     }
 
-    public function has(BackedEnum $key): bool
+    public function rememberStructure(array $cache): void
     {
-        return $this->cacheDriver()->has($this->cachePrefix($key->value));
+        $this->cacheFactory->driver()->set($this->cachePrefix(), $cache);
     }
 
-    protected function cachePrefix(BackedEnum|string $key): string
+    public function forgetCache(): void
     {
-        return self::PREFIX . ':' . $this->resolveKey($key);
+        $this->cacheFactory->driver()->forget($this->cachePrefix());
     }
 
-    protected function resolveKey(BackedEnum|string $key): string
+    public function cachePrefix(): string
     {
-        return match (true) {
-            is_string($key)            => $key,
-            $key instanceof BackedEnum => $key->value,
-            default                    => $key
-        };
-    }
-
-    protected function cacheDriver(): CacheInterface
-    {
-        return Cache::driver();
+        return self::PREFIX;
     }
 }

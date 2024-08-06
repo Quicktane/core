@@ -4,6 +4,8 @@ namespace Quicktane\Core;
 
 use Illuminate\Support\ServiceProvider;
 use Quicktane\Core\Config\Console\PutConfigInCache;
+use Quicktane\Core\Config\Decorators\ConfigDecorator;
+use Quicktane\Core\Config\Interfaces\ConfigServiceInterface;
 use Quicktane\Core\Config\Services\ConfigService;
 use Quicktane\Core\Console\Commands\Import\ImportCountries;
 
@@ -24,13 +26,14 @@ class QuicktaneServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'quicktane');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'quicktane');
 
         collect($this->configFiles)->each(function ($config) {
-            $this->mergeConfigFrom(__DIR__."/../config/$config.php", "quicktane.$config");
+            $this->mergeConfigFrom(__DIR__ . "/../config/$config.php", "quicktane.$config");
         });
 
         $this->app->bind('global_configs', fn() => new ConfigService());
+        $this->app->bind(ConfigServiceInterface::class, fn() => resolve(ConfigDecorator::class));
     }
 
     public function boot()
@@ -41,21 +44,21 @@ class QuicktaneServiceProvider extends ServiceProvider
         ]);
 
         if (!config('quicktane.database.disable_migrations', false)) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
 
         collect($this->configFiles)->each(function ($config) {
             $this->publishes([
-                __DIR__."/../config/$config.php" => config_path("quicktane/$config.php"),
+                __DIR__ . "/../config/$config.php" => config_path("quicktane/$config.php"),
             ], 'quicktane');
         });
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => lang_path('vendor/lunar'),
+            __DIR__ . '/../resources/lang' => lang_path('vendor/lunar'),
         ], 'quicktane.translation');
 
         $this->publishesMigrations([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
         ]);
     }
 }
