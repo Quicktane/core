@@ -11,7 +11,6 @@ use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Base\Casts\MoneyIntegerCast;
 use Quicktane\Core\Customer\Models\CustomerGroup;
 use Quicktane\Core\Database\Factories\PriceFactory;
-use Quicktane\Core\Models\Currency;
 
 /**
  * @property int      $id

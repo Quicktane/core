@@ -4,25 +4,20 @@ namespace Quicktane\Core\Product\Dto;
 
 use Quicktane\Core\Base\Dto\Attributes\Cast;
 use Quicktane\Core\Base\Dto\Attributes\DefaultValue;
-use Quicktane\Core\Base\Dto\Attributes\Exclude;
 use Quicktane\Core\Base\Dto\Attributes\Rules;
 use Quicktane\Core\Base\Dto\Casting\IntegerCast;
 use Quicktane\Core\Base\Dto\Dto;
 
-class ProductDto extends Dto
+class UpdateAttributeDto extends Dto
 {
-    #[Rules(['required', 'string'])]
-    public string $sku;
+    #[Rules(['required', 'string', 'min:3', 'max:255'])]
+    public string $name;
+
+    #[Rules(['nullable'])]
+    public mixed $default_value = null;
 
     #[Rules(['sometimes', 'integer'])]
     #[Cast(IntegerCast::class)]
     #[DefaultValue(0)]
-    public int $quantity;
-
-    #[Rules(['required', 'integer', 'exists:qt_attribute_groups,id'])]
-    public int $attribute_group_id;
-
-    #[Rules(['required', 'array'])]
-    #[Exclude]
-    public array $attributes = [];
+    public int $position = 0;
 }

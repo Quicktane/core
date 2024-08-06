@@ -2,8 +2,8 @@
 
 namespace Quicktane\Core\Customer\Dto;
 
-use Quicktane\Core\Base\Dto;
-use WendellAdriel\ValidatedDTO\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Dto;
 
 class CustomerDto extends Dto
 {

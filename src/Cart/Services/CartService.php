@@ -5,7 +5,7 @@ namespace Quicktane\Core\Cart\Services;
 use Quicktane\Core\Cart\Models\Cart;
 use Quicktane\Core\Cart\Models\CartItem;
 use Quicktane\Core\Customer\Models\Customer;
-use Quicktane\Core\Models\Currency;
+use Quicktane\Core\Product\Models\Currency;
 use Quicktane\Core\Product\Models\Product;
 
 class CartService

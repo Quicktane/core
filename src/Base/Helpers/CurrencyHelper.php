@@ -2,7 +2,7 @@
 
 namespace Quicktane\Core\Base\Helpers;
 
-use Quicktane\Core\Models\Currency as CurrencyModel;
+use Quicktane\Core\Product\Models\Currency as CurrencyModel;
 
 class CurrencyHelper
 {

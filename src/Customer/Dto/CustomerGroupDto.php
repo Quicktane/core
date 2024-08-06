@@ -2,10 +2,10 @@
 
 namespace Quicktane\Core\Customer\Dto;
 
-use Quicktane\Core\Base\Dto;
-use WendellAdriel\ValidatedDTO\Attributes\Cast;
-use WendellAdriel\ValidatedDTO\Attributes\Rules;
-use WendellAdriel\ValidatedDTO\Casting\BooleanCast;
+use Quicktane\Core\Base\Dto\Attributes\Cast;
+use Quicktane\Core\Base\Dto\Attributes\Rules;
+use Quicktane\Core\Base\Dto\Casting\BooleanCast;
+use Quicktane\Core\Base\Dto\Dto;
 
 class CustomerGroupDto extends Dto
 {

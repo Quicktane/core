@@ -3,7 +3,7 @@
 namespace Quicktane\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Quicktane\Core\Models\Currency;
+use Quicktane\Core\Product\Models\Currency;
 
 class CurrencyFactory extends Factory
 {

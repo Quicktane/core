@@ -11,7 +11,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Quicktane\Core\Base\BaseModel;
 use Quicktane\Core\Customer\Models\Customer;
-use Quicktane\Core\Models\Currency;
+use Quicktane\Core\Product\Models\Currency;
 
 /**
  * @property int     $id
