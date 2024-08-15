@@ -4,7 +4,6 @@ namespace Quicktane\Core\Config\Interfaces;
 
 use BackedEnum;
 use Illuminate\Support\Collection;
-use Quicktane\Core\Config\Dto\ConfigDto;
 
 interface ConfigServiceInterface
 {
@@ -14,7 +13,7 @@ interface ConfigServiceInterface
 
     public function findOrFail(BackedEnum $key);
 
-    public function set(ConfigDto $configDto): void;
+    public function set(array $config): void;
 
     public function delete(BackedEnum $key): void;
 

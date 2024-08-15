@@ -6,11 +6,10 @@ use BackedEnum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Quicktane\Core\Config\Dto\ConfigDto;
 use Quicktane\Core\Config\Exceptions\ConfigNotFoundException;
 use Quicktane\Core\Config\Models\Config;
 
-class ConfigService
+class ConfigRepository
 {
     public function all(): Collection
     {
@@ -39,10 +38,10 @@ class ConfigService
         return Config::query()->where(['key' => $key->value])->exists();
     }
 
-    public function set(ConfigDto $configDto): void
+    public function set(array $config): void
     {
-        DB::transaction(function () use ($configDto) {
-            $config = $configDto->toModel(Config::class);
+        DB::transaction(function () use ($config) {
+            $config = new Config($config);
 
             $config->save();
 

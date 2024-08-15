@@ -3,14 +3,14 @@
 namespace Quicktane\Core\Config\Managers;
 
 use BackedEnum;
-use Quicktane\Core\Config\Services\ConfigCacheService;
-use Quicktane\Core\Config\Services\ConfigService;
+use Quicktane\Core\Config\Services\ConfigCacheRepository;
+use Quicktane\Core\Config\Services\ConfigRepository;
 
 class ConfigManager
 {
     public function __construct(
-        protected ConfigCacheService $configCacheService,
-        protected ConfigService $configService,
+        protected ConfigCacheRepository $configCacheService,
+        protected ConfigRepository $configService,
     ) {
     }
 

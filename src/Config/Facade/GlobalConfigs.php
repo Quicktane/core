@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static float|object|string|array get(BackedEnum $key)
  * @method static array all()
  *
- * @see ConfigService
+ * @see ConfigRepository
  */
 class GlobalConfigs extends Facade
 {

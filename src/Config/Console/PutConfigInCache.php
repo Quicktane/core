@@ -4,7 +4,6 @@ namespace Quicktane\Core\Config\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Quicktane\Core\Config\Decorators\ConfigDecorator;
 use Quicktane\Core\Config\Managers\ConfigManager;
 
 class PutConfigInCache extends Command

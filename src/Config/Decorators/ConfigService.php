@@ -4,17 +4,16 @@ namespace Quicktane\Core\Config\Decorators;
 
 use BackedEnum;
 use Illuminate\Support\Collection;
-use Quicktane\Core\Config\Dto\ConfigDto;
 use Quicktane\Core\Config\Interfaces\ConfigServiceInterface;
 use Quicktane\Core\Config\Managers\ConfigManager;
-use Quicktane\Core\Config\Services\ConfigCacheService;
-use Quicktane\Core\Config\Services\ConfigService;
+use Quicktane\Core\Config\Services\ConfigCacheRepository;
+use Quicktane\Core\Config\Services\ConfigRepository;
 
-class ConfigDecorator extends ConfigService implements ConfigServiceInterface
+class ConfigService extends ConfigRepository implements ConfigServiceInterface
 {
     public function __construct(
-        protected ConfigCacheService $configCacheService,
-        protected ConfigService $configService,
+        protected ConfigCacheRepository $configCacheService,
+        protected ConfigRepository $configService,
         protected ConfigManager $configManager,
     ) {
     }
@@ -58,9 +57,9 @@ class ConfigDecorator extends ConfigService implements ConfigServiceInterface
         return parent::find($key);
     }
 
-    public function set(ConfigDto $configDto): void
+    public function set(array $config): void
     {
-        parent::set($configDto);
+        parent::set($config);
 
         $this->configManager->rememberCache();
     }

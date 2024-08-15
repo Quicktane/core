@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Base\Factories\CacheFactory;
 
-class ConfigCacheService
+class ConfigCacheRepository
 {
     const PREFIX = 'global_configs';
 

@@ -4,9 +4,9 @@ namespace Quicktane\Core;
 
 use Illuminate\Support\ServiceProvider;
 use Quicktane\Core\Config\Console\PutConfigInCache;
-use Quicktane\Core\Config\Decorators\ConfigDecorator;
+use Quicktane\Core\Config\Decorators\ConfigService;
 use Quicktane\Core\Config\Interfaces\ConfigServiceInterface;
-use Quicktane\Core\Config\Services\ConfigService;
+use Quicktane\Core\Config\Services\ConfigRepository;
 use Quicktane\Core\Console\Commands\Import\ImportCountries;
 
 class QuicktaneServiceProvider extends ServiceProvider
@@ -32,8 +32,8 @@ class QuicktaneServiceProvider extends ServiceProvider
             $this->mergeConfigFrom(__DIR__ . "/../config/$config.php", "quicktane.$config");
         });
 
-        $this->app->bind('global_configs', fn() => new ConfigService());
-        $this->app->bind(ConfigServiceInterface::class, fn() => resolve(ConfigDecorator::class));
+        $this->app->bind('global_configs', fn() => new ConfigRepository());
+        $this->app->bind(ConfigServiceInterface::class, fn() => resolve(ConfigService::class));
     }
 
     public function boot()
