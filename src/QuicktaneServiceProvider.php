@@ -32,7 +32,7 @@ class QuicktaneServiceProvider extends ServiceProvider
             $this->mergeConfigFrom(__DIR__ . "/../config/$config.php", "quicktane.$config");
         });
 
-        $this->app->bind('global_configs', fn() => new SettingsRepository());
+        $this->app->bind('global_settings', fn() => new SettingsRepository());
         $this->app->bind(SettingsServiceInterface::class, fn() => resolve(SettingsService::class));
     }
 

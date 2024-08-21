@@ -7,8 +7,8 @@ use Exception;
 
 class SettingsNotFoundException extends Exception
 {
-    public function __construct(BackedEnum $config)
+    public function __construct(BackedEnum $settings)
     {
-        parent::__construct("Config `$config->value` not found");
+        parent::__construct("Config `$settings->value` not found");
     }
 }

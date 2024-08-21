@@ -16,6 +16,6 @@ class GlobalSettings extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'global_configs';
+        return 'global_settings';
     }
 }
