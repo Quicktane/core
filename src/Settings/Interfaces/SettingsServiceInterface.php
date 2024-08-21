@@ -1,11 +1,11 @@
 <?php
 
-namespace Quicktane\Core\Config\Interfaces;
+namespace Quicktane\Core\Settings\Interfaces;
 
 use BackedEnum;
 use Illuminate\Support\Collection;
 
-interface ConfigServiceInterface
+interface SettingsServiceInterface
 {
     public function all(): Collection;
 
@@ -13,7 +13,7 @@ interface ConfigServiceInterface
 
     public function findOrFail(BackedEnum $key);
 
-    public function set(array $config): void;
+    public function set(array $settings): void;
 
     public function delete(BackedEnum $key): void;
 

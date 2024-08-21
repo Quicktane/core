@@ -1,11 +1,11 @@
 <?php
 
-namespace Quicktane\Core\Config\Exceptions;
+namespace Quicktane\Core\Settings\Exceptions;
 
 use BackedEnum;
 use Exception;
 
-class ConfigNotFoundException extends Exception
+class SettingsNotFoundException extends Exception
 {
     public function __construct(BackedEnum $config)
     {

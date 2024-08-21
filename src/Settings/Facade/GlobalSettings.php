@@ -1,17 +1,18 @@
 <?php
 
-namespace Quicktane\Core\Config\Facade;
+namespace Quicktane\Core\Settings\Facade;
 
 use BackedEnum;
 use Illuminate\Support\Facades\Facade;
+use Quicktane\Core\Settings\Repositories\SettingsRepository;
 
 /**
  * @method static float|object|string|array get(BackedEnum $key)
  * @method static array all()
  *
- * @see ConfigRepository
+ * @see SettingsRepository
  */
-class GlobalConfigs extends Facade
+class GlobalSettings extends Facade
 {
     protected static function getFacadeAccessor()
     {

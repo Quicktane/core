@@ -3,11 +3,11 @@
 namespace Quicktane\Core;
 
 use Illuminate\Support\ServiceProvider;
-use Quicktane\Core\Config\Console\PutConfigInCache;
-use Quicktane\Core\Config\Decorators\ConfigService;
-use Quicktane\Core\Config\Interfaces\ConfigServiceInterface;
-use Quicktane\Core\Config\Services\ConfigRepository;
 use Quicktane\Core\Console\Commands\Import\ImportCountries;
+use Quicktane\Core\Settings\Console\PutSettingsInCache;
+use Quicktane\Core\Settings\Interfaces\SettingsServiceInterface;
+use Quicktane\Core\Settings\Repositories\SettingsRepository;
+use Quicktane\Core\Settings\Services\SettingsService;
 
 class QuicktaneServiceProvider extends ServiceProvider
 {
@@ -32,15 +32,15 @@ class QuicktaneServiceProvider extends ServiceProvider
             $this->mergeConfigFrom(__DIR__ . "/../config/$config.php", "quicktane.$config");
         });
 
-        $this->app->bind('global_configs', fn() => new ConfigRepository());
-        $this->app->bind(ConfigServiceInterface::class, fn() => resolve(ConfigService::class));
+        $this->app->bind('global_configs', fn() => new SettingsRepository());
+        $this->app->bind(SettingsServiceInterface::class, fn() => resolve(SettingsService::class));
     }
 
     public function boot()
     {
         $this->commands([
             ImportCountries::class,
-            PutConfigInCache::class,
+            PutSettingsInCache::class,
         ]);
 
         if (!config('quicktane.database.disable_migrations', false)) {

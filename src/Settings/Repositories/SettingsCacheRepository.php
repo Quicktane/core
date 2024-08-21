@@ -1,14 +1,14 @@
 <?php
 
-namespace Quicktane\Core\Config\Services;
+namespace Quicktane\Core\Settings\Repositories;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Base\Factories\CacheFactory;
 
-class ConfigCacheRepository
+class SettingsCacheRepository
 {
-    const PREFIX = 'global_configs';
+    const PREFIX = 'global_settings';
 
     public function __construct(
         protected CacheFactory $cacheFactory
