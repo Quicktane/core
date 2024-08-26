@@ -27,7 +27,7 @@ class PutSettingsInCache extends Command
      */
     public function handle(SettingsManager $settingsManager)
     {
-        $settingsManager->rememberCache();
+        $settingsManager->refreshCache();
 
         Log::info('Settings put in cache!');
     }

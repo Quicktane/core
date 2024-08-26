@@ -22,12 +22,12 @@ class SettingsCacheRepository
 
     public function get($key, $default = null): ?string
     {
-        return Arr::get($this->cacheFactory->driver()->get($this->cachePrefix()), $key->value, $default);
+        return Arr::get($this->cacheFactory->driver()->get($this->cachePrefix()), $key, $default);
     }
 
-    public function rememberStructure(array $cache): void
+    public function refreshStructure(array $structure): void
     {
-        $this->cacheFactory->driver()->set($this->cachePrefix(), $cache);
+        $this->cacheFactory->driver()->set($this->cachePrefix(), $structure);
     }
 
     public function forgetCache(): void

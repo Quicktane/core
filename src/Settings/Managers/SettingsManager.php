@@ -2,7 +2,6 @@
 
 namespace Quicktane\Core\Settings\Managers;
 
-use BackedEnum;
 use Quicktane\Core\Settings\Repositories\SettingsCacheRepository;
 use Quicktane\Core\Settings\Repositories\SettingsRepository;
 
@@ -14,18 +13,18 @@ class SettingsManager
     ) {
     }
 
-    public function putInCacheIfExist(?BackedEnum $key = null): void
+    public function putInCacheIfExist(?string $key = null): void
     {
         if ($key == null || $this->settingsRepository->find($key)) {
-            $this->rememberCache();
+            $this->refreshCache();
         }
     }
 
-    public function rememberCache(): void
+    public function refreshCache(): void
     {
         $this->settingsCacheService->forgetCache();
 
-        $this->settingsCacheService->rememberStructure($this->getSerializedSettingsForCache());
+        $this->settingsCacheService->refreshStructure($this->getSerializedSettingsForCache());
     }
 
     protected function getSerializedSettingsForCache(): array

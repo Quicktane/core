@@ -2,7 +2,6 @@
 
 namespace Quicktane\Core\Settings\Repositories;
 
-use BackedEnum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -19,23 +18,23 @@ class SettingsRepository
                        ->mapWithKeys(fn(Settings $settings) => [$settings->key => $settings->value]);
     }
 
-    public function find(BackedEnum $key): ?string
+    public function find(string $key): ?string
     {
-        return Settings::query()->where(['key' => $key->value])->first()?->value;
+        return Settings::query()->where(['key' => $key])->first()?->value;
     }
 
-    public function findOrFail(BackedEnum $key): string|SettingsNotFoundException|null
+    public function findOrFail(string $key): string|SettingsNotFoundException|null
     {
         try {
-            return Settings::query()->where(['key' => $key->value])->firstOrFail();
+            return Settings::query()->where(['key' => $key])->firstOrFail();
         } catch (ModelNotFoundException $exception) {
             throw  new SettingsNotFoundException($key);
         }
     }
 
-    public function has(BackedEnum $key): bool
+    public function has(string $key): bool
     {
-        return Settings::query()->where(['key' => $key->value])->exists();
+        return Settings::query()->where(['key' => $key])->exists();
     }
 
     public function set(array $settings): void
@@ -49,7 +48,7 @@ class SettingsRepository
         });
     }
 
-    public function delete(BackedEnum $key): void
+    public function delete(string $key): void
     {
         DB::transaction(function () use ($key) {
             Settings::query()->where('key', $key)->delete();
