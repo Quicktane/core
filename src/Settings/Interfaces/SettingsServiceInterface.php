@@ -2,20 +2,19 @@
 
 namespace Quicktane\Core\Settings\Interfaces;
 
-use BackedEnum;
 use Illuminate\Support\Collection;
 
 interface SettingsServiceInterface
 {
     public function all(): Collection;
 
-    public function find(BackedEnum $key);
+    public function find(string $key);
 
-    public function findOrFail(BackedEnum $key);
+    public function findOrFail(string $key);
 
     public function set(array $settings): void;
 
-    public function delete(BackedEnum $key): void;
+    public function delete(string $key): void;
 
-    public function has(BackedEnum $key): bool;
+    public function has(string $key): bool;
 }

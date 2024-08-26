@@ -2,7 +2,6 @@
 
 namespace Quicktane\Core\Settings\Services;
 
-use BackedEnum;
 use Illuminate\Support\Collection;
 use Quicktane\Core\Settings\Interfaces\SettingsServiceInterface;
 use Quicktane\Core\Settings\Managers\SettingsManager;
@@ -31,7 +30,7 @@ class SettingsService extends SettingsRepository implements SettingsServiceInter
         return parent::all();
     }
 
-    public function find(BackedEnum $key): string
+    public function find(string $key): string
     {
         $settings = $this->settingsCacheRepository->get($key);
 
@@ -44,7 +43,7 @@ class SettingsService extends SettingsRepository implements SettingsServiceInter
         return parent::find($key);
     }
 
-    public function findOrFail(BackedEnum $key): string
+    public function findOrFail(string $key): string
     {
         $settings = $this->settingsCacheRepository->get($key);
 
@@ -61,13 +60,13 @@ class SettingsService extends SettingsRepository implements SettingsServiceInter
     {
         parent::set($settings);
 
-        $this->settingsManager->rememberCache();
+        $this->settingsManager->refreshCache();
     }
 
-    public function delete(BackedEnum $key): void
+    public function delete(string $key): void
     {
         parent::delete($key);
 
-        $this->settingsManager->rememberCache();
+        $this->settingsManager->refreshCache();
     }
 }
